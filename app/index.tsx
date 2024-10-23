@@ -1,9 +1,14 @@
-import { Text, View } from "react-native";
+import { Link, useRouter } from "expo-router";
+import { View, Text, Pressable } from "react-native";
 
 export default function Index() {
-    return (
-        <View className="flex-1 justify-center items-center">
-            <Text>Edit app/index.tsx to edit this screen.</Text>
-        </View>
-    );
+  const router = useRouter();
+  return (
+    <View>
+      <Text>Index page</Text>
+      <Pressable onPress={() => router.push(`/(tabs)/home`)}>
+        <Text>Go to home tabs</Text>
+      </Pressable>
+    </View>
+  );
 }
