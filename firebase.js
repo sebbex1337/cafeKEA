@@ -4,17 +4,14 @@ import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Load environment variables from .env file
-config();
-
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
+  apiKey: "AIzaSyA7G_C3GFGFDjb0kMTztZVfy4Xe-KlNJe4",
+  authDomain: "cafekea-5aa9d.firebaseapp.com",
+  projectId: "cafekea-5aa9d",
+  storageBucket: "cafekea-5aa9d.appspot.com",
+  messagingSenderId: "678105874412",
+  appId: "1:678105874412:web:c8140d329bdcc280e9cac9",
 };
 
 // Initialize Firebase
