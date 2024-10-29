@@ -52,22 +52,22 @@ export default function Index() {
           <Text className="text-4xl font-bold pb-4">Login to cafeKEA</Text>
           <TextInput
             placeholder="Email"
-            className="w-[300] p-2"
+            className="w-[300] p-2 border rounded-xl mb-2"
             value={formDataLogin.email}
             onChangeText={(email) => setFormDataLogin({ ...formDataLogin, email })}
           />
           <TextInput
             placeholder="Password"
             secureTextEntry
-            className="w-[300] p-2"
+            className="w-[300] p-2 border rounded-xl mb-2"
             value={formDataLogin.password}
             onChangeText={(password) => setFormDataLogin({ ...formDataLogin, password })}
           />
-          <Pressable onPress={login} className="rounded-xl px-4 py-2 bg-blue-600 mb-4">
-            <Text className="text-white">Login</Text>
+          <Pressable onPress={login} className="rounded-xl px-4 py-2 bg-[#ffd33d] mb-4">
+            <Text>Login</Text>
           </Pressable>
-          <Pressable onPress={() => setSigningUp(!signingUp)} className="rounded-xl px-4 py-2 bg-blue-600 mb-4">
-            <Text className="text-white">Sign up</Text>
+          <Pressable onPress={() => setSigningUp(!signingUp)} className="rounded-xl px-4 py-2 bg-[#ffd33d] mb-4">
+            <Text>Sign up</Text>
           </Pressable>
         </>
       )}
@@ -76,29 +76,29 @@ export default function Index() {
           <Text className="text-4xl font-bold pb-4">Register to cafeKEA</Text>
           <TextInput
             placeholder="Email"
-            className="w-[300] p-2"
+            className="w-[300] p-2 border rounded-xl mb-2"
             value={formDataSignUp.email}
             onChangeText={(email) => setFormDataSignUp({ ...formDataSignUp, email })}
           />
           <TextInput
             placeholder="Password"
             secureTextEntry
-            className="w-[300] p-2"
+            className="w-[300] p-2 border rounded-xl mb-2"
             value={formDataSignUp.password}
             onChangeText={(password) => setFormDataSignUp({ ...formDataSignUp, password })}
           />
           <TextInput
             placeholder="Enter password again"
             secureTextEntry
-            className="w-[300] p-2 pb-4"
+            className="w-[300] p-2 border rounded-xl mb-2"
             value={formDataSignUp.password2}
             onChangeText={(password2) => setFormDataSignUp({ ...formDataSignUp, password2 })}
           />
-          <Pressable onPress={signup} className="rounded-xl px-4 py-2 bg-blue-600 mb-4">
-            <Text className="text-white">Create account</Text>
+          <Pressable onPress={signup} className="rounded-xl px-4 py-2 bg-[#ffd33d] mb-4">
+            <Text>Create account</Text>
           </Pressable>
-          <Pressable onPress={() => setSigningUp(!signingUp)} className="rounded-xl px-4 py-2 bg-blue-600 mb-4">
-            <Text className="text-white">Go to login</Text>
+          <Pressable onPress={() => setSigningUp(!signingUp)} className="rounded-xl px-4 py-2 bg-[#ffd33d] mb-4">
+            <Text>Go to login</Text>
           </Pressable>
         </>
       )}

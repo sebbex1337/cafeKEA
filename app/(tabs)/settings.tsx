@@ -18,8 +18,8 @@ export default function Settings() {
   return (
     <View className="flex-1 justify-center items-center">
       <Text>Settings page</Text>
-      <Pressable onPress={sign_out} className="bg-blue-600 py-2 px-4 rounded-xl">
-        <Text className="text-white">Logout</Text>
+      <Pressable onPress={sign_out} className="bg-[#ffd33d] py-2 px-4 rounded-xl">
+        <Text>Logout</Text>
       </Pressable>
     </View>
   );
