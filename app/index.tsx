@@ -1,10 +1,8 @@
 import { useRouter } from "expo-router";
 import { View, Text, Pressable, TextInput, Alert } from "react-native";
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { app } from "../firebase";
+import { auth } from "../firebase";
 import { useEffect, useState } from "react";
-
-const auth = getAuth(app);
 
 export default function Index() {
   const router = useRouter();
