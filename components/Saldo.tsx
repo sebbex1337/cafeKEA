@@ -29,8 +29,8 @@ export default function Saldo() {
     }, []);
 
     return (
-        <View className="items-center border-solid border-2 border-red-600 bg-amber-400 rounded-md absolute inset-x-2 top-1/4 h-24">
-            <Text className="pt-3 font-bold text-lg">Saldo:</Text>
+        <View className="items-center border-solid border-2 border-red-600 bg-amber-300 rounded-md w-[90%] py-3">
+            <Text className=" font-bold text-lg">Saldo:</Text>
             <Text className="text-5xl">{saldo} kr.</Text>
         </View>
     );
