@@ -9,7 +9,7 @@ export default function Home() {
         <View className="pt-48 justify-center items-center">
             <Saldo />
             <Text>Home page</Text>
-            <TouchableOpacity className="absolute top-10 right-2">
+            <TouchableOpacity className="absolute top-2 right-2">
                 <Link href={{ pathname: "/modal" as any }}>
                     <Ionicons name="information-circle-outline" size={30} color="grey" />
                 </Link>
