@@ -3,6 +3,7 @@ import { View, Text, Pressable, TextInput, Alert } from "react-native";
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useEffect, useState } from "react";
+import "../global.css";
 
 export default function Index() {
   const router = useRouter();
