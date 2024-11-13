@@ -1,13 +1,19 @@
-import { View, Text, FlatList } from "react-native";
-import { database } from "@/firebase";
+import { View, Text, FlatList, Pressable, Alert } from "react-native";
+import { auth, database } from "@/firebase";
 import { MenuItem } from "@/types/types";
-import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { useCallback, useEffect, useState } from "react";
+import { addDoc, collection, doc, getDocs, serverTimestamp } from "firebase/firestore";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MenuModal from "@/components/MenuModal";
+import ConfirmationModal from "@/components/ConfirmationModal";
 
 export default function Menu() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
+  // Load all menu items from the database
   useEffect(() => {
     async function getMenuItems() {
       try {
@@ -24,6 +30,34 @@ export default function Menu() {
     getMenuItems();
   }, []);
 
+  function handleItemPress(item: MenuItem) {
+    setSelectedItem(item);
+    setShowModal(true);
+  }
+
+  const handlePurchase = useCallback(async () => {
+    if (!selectedItem) return;
+
+    const user = auth.currentUser;
+    if (!user) {
+      Alert.alert("Error", "You need to be logged in to purchase");
+      return;
+    }
+
+    try {
+      const reciptsRef = collection(database, "users", user.uid, "recipts");
+      await addDoc(reciptsRef, {
+        bought: serverTimestamp(),
+        coffee: doc(database, "menu", selectedItem.name),
+      });
+      setShowModal(false);
+      setShowConfirmation(true);
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Error", "Failed to purchase item");
+    }
+  }, [selectedItem]);
+
   return (
     <View className="flex-1 justify-center items-center pt-2">
       <Text>Menu page</Text>
@@ -33,13 +67,22 @@ export default function Menu() {
         numColumns={1}
         keyExtractor={(item) => item.id}
         renderItem={(menu) => (
-          <View className="flex-row justify-between items-center py-2 px-4 m-2 rounded-3xl bg-orange-200">
-            <MaterialCommunityIcons name="coffee-to-go" size={48} color="black" />
-            <Text className="text-center text-2xl">{menu.item.name}</Text>
-            <Text className="text-center text-2xl">{menu.item.price}kr</Text>
-          </View>
+          <Pressable onPress={() => handleItemPress(menu.item)}>
+            <View className="flex-row justify-between items-center py-2 px-4 m-2 rounded-3xl bg-orange-200">
+              <MaterialCommunityIcons name="coffee-to-go" size={48} color="black" />
+              <Text className="text-center text-2xl">{menu.item.name}</Text>
+              <Text className="text-center text-2xl">{menu.item.price}kr</Text>
+            </View>
+          </Pressable>
         )}
       />
+      <MenuModal
+        visible={showModal}
+        item={selectedItem}
+        onClose={() => setShowModal(false)}
+        onPurchase={handlePurchase}
+      />
+      <ConfirmationModal visible={showConfirmation} onClose={() => setShowConfirmation(false)} />
     </View>
   );
 }
