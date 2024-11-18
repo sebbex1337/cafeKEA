@@ -5,13 +5,11 @@ import { useCallback, useEffect, useState } from "react";
 import { addDoc, collection, doc, getDocs, serverTimestamp } from "firebase/firestore";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MenuModal from "@/components/MenuModal";
-import ConfirmationModal from "@/components/ConfirmationModal";
 
 export default function Menu() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
 
   // Load all menu items from the database
   useEffect(() => {
@@ -55,7 +53,7 @@ export default function Menu() {
         },
       });
       setShowModal(false);
-      setShowConfirmation(true);
+      setSelectedItem(null);
     } catch (error) {
       console.log(error);
       Alert.alert("Error", "Failed to purchase item");
@@ -86,7 +84,6 @@ export default function Menu() {
         onClose={() => setShowModal(false)}
         onPurchase={handlePurchase}
       />
-      <ConfirmationModal visible={showConfirmation} onClose={() => setShowConfirmation(false)} />
     </View>
   );
 }

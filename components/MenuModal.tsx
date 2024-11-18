@@ -17,18 +17,10 @@ const SWIPE_THRESHOLD = 170;
 const MAX_TRANSLATE_X = 200;
 
 export default function MenuModal({ visible, item, onClose, onPurchase }: MenuModalProps) {
-  if (!item) return null; // Return null if no item is selected so we don't render anything
   // Shared value to keep track of the translation of the swipe gesture
   const translateX = useSharedValue(0);
   // Ref to keep track of if the user has purchased the item
   const hasPurchased = useRef(false);
-
-  // Checks if user is logged in
-  const user = auth.currentUser;
-  if (!user) {
-    Alert.alert("Error", "You need to be logged in to purchase");
-    return;
-  }
 
   // Makes sure parent component handles the purchase only once
   const purchaseCoffee = useCallback(() => {
@@ -63,6 +55,15 @@ export default function MenuModal({ visible, item, onClose, onPurchase }: MenuMo
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: translateX.value }],
   }));
+
+  // Checks if user is logged in
+  const user = auth.currentUser;
+  if (!user) {
+    Alert.alert("Error", "You need to be logged in to purchase");
+    return;
+  }
+
+  if (!item) return null; // Return null if no item is selected so we don't render anything
 
   return (
     <Modal animationType="slide" transparent={true} visible={visible} onRequestClose={onClose}>

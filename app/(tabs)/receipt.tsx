@@ -47,7 +47,6 @@ export default function Receipt() {
         querySnapshot.forEach((doc) => {
           items.push({ id: doc.id, ...doc.data() } as ReceiptItem);
         });
-        console.log(items);
         setReceipts(items);
       } catch (error) {
         console.log(error);
