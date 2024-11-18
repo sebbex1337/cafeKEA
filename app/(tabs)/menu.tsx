@@ -45,10 +45,14 @@ export default function Menu() {
     }
 
     try {
-      const reciptsRef = collection(database, "users", user.uid, "recipts");
-      await addDoc(reciptsRef, {
+      const receiptsRef = collection(database, "users", user.uid, "receipts");
+      await addDoc(receiptsRef, {
         bought: serverTimestamp(),
-        coffee: doc(database, "menu", selectedItem.name),
+        coffee: {
+          id: selectedItem.id,
+          name: selectedItem.name,
+          price: selectedItem.price,
+        },
       });
       setShowModal(false);
       setShowConfirmation(true);
