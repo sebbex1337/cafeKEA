@@ -63,8 +63,8 @@ export default function Menu() {
   }, [selectedItem]);
 
   return (
-    <View className="flex-1 justify-center items-center pt-2">
-      <Text>Menu page</Text>
+    <View className="flex-1 justify-center items-center pt-2 bg-background">
+      <Text className="font-bold text-4xl">Menu</Text>
       <FlatList
         className="w-full"
         data={menuItems}

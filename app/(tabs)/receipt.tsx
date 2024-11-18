@@ -71,7 +71,7 @@ export default function Receipt() {
   }
 
   return (
-    <View className="flex-1 justify-start items-center pt-2 bg-white">
+    <View className="flex-1 justify-start items-center pt-2 bg-background">
       <Text className="text-3xl font-bold mb-4">Receipts</Text>
       {loading ? (
         <ActivityIndicator size="large" color="#808080" />
