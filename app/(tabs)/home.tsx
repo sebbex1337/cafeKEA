@@ -35,9 +35,9 @@ export default function Home() {
     );
 
     return (
-        <View className="pt-48 justify-center items-center">
+        <View className="pt-24 justify-center items-center bg-background">
+            <Text className="text-3xl">Velkommen til KEA Café</Text>
             <Saldo userSaldo={saldo} />
-            <Text>Home page</Text>
             <TouchableOpacity className="absolute top-2 right-2">
                 <Link href={{ pathname: "/modal" as any }}>
                     <Ionicons name="information-circle-outline" size={30} color="grey" />

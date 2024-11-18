@@ -17,7 +17,7 @@ export default function PictureGrid() {
     }, []);
 
     return (
-        <View className="w-full h-full items-center justify-center border-2 border-solid border-yellow-900 bg-amber-300 rounded-md pb-28">
+        <View className="w-full h-full items-center justify-center border-2 border-solid border-yellow-900 bg-secBackground rounded-md pb-28">
             <Text className="text-2xl font-bold mb-1">Keas Coffee Lovers</Text>
             <FlatList
                 className="w-full"
