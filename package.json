@@ -37,7 +37,8 @@
     "react-native-safe-area-context": "4.14.0",
     "react-native-screens": "~4.1.0",
     "react-native-web": "~0.19.13",
-    "tailwindcss": "^3.4.15"
+    "tailwindcss": "^3.4.15",
+    "expo-camera": "~16.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
