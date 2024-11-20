@@ -46,42 +46,6 @@ export default function Home() {
 
   return (
     <View className="flex-1 justify-between bg-background">
-      {/* Conditional Rendering Inside JSX */}
-
-      {!permission ? (
-        // If permission is loading
-        <View />
-      ) : !permission.granted ? (
-        // If permission is not granted
-        <View className="flex-1 justify-between">
-          <Text>We need your permission to show the camera</Text>
-          <Pressable onPress={requestPermission}>
-            <Text>Grant Permission</Text>
-          </Pressable>
-        </View>
-      ) : (
-        // Main Content when permission is granted
-        <>
-          <View className="items-center">
-            <Text className="text-3xl pb-8 pt-2">Velkommen til KEA Café</Text>
-            <Saldo userSaldo={saldo} />
-            <TouchableOpacity className="absolute top-2 right-2">
-              <Link href={{ pathname: "/modal" as any }}>
-                <Ionicons name="information-circle-outline" size={30} color="grey" />
-              </Link>
-            </TouchableOpacity>
-            <Pressable onPress={toggleCameraFacing}>
-              <Ionicons name="camera" size={48} color="grey" />
-            </Pressable>
-          </View>
-          <PictureGrid />
-        </>
-      )}
-    </View>
-  );
-}
-
-/* <View className="flex-1 justify-between bg-background">
       <View className="items-center">
         <Text className="text-3xl pb-8 pt-2">Velkommen til KEA Café</Text>
         <Saldo userSaldo={saldo} />
@@ -90,7 +54,11 @@ export default function Home() {
             <Ionicons name="information-circle-outline" size={30} color="grey" />
           </Link>
         </TouchableOpacity>
+        <Pressable onPress={toggleCameraFacing}>
+          <Ionicons name="camera" size={48} color="grey" />
+        </Pressable>
       </View>
       <PictureGrid />
-    </View> 
-*/
+    </View>
+  );
+}
