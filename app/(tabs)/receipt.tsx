@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { View, Text, FlatList, ActivityIndicator } from "react-native";
 import { auth, database } from "@/firebase";
-import { collection, getDocs, Timestamp } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, Timestamp } from "firebase/firestore";
 import { ReceiptItem } from "@/types/types";
 import { useFocusEffect } from "expo-router";
 
@@ -19,7 +19,9 @@ export default function Receipt() {
     setLoading(true);
     try {
       const receiptsCollection = collection(database, "users", user.uid, "receipts");
-      const querySnapshot = await getDocs(receiptsCollection);
+      // Query receipts by the bought date in descending order
+      const receiptsQuery = query(receiptsCollection, orderBy("bought", "desc"));
+      const querySnapshot = await getDocs(receiptsQuery);
       const items: ReceiptItem[] = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
@@ -47,7 +49,6 @@ export default function Receipt() {
         querySnapshot.forEach((doc) => {
           items.push({ id: doc.id, ...doc.data() } as ReceiptItem);
         });
-        console.log(items);
         setReceipts(items);
       } catch (error) {
         console.log(error);
@@ -71,7 +72,7 @@ export default function Receipt() {
   }
 
   return (
-    <View className="flex-1 justify-start items-center pt-2 bg-white">
+    <View className="flex-1 justify-start items-center pt-2 bg-background">
       <Text className="text-3xl font-bold mb-4">Receipts</Text>
       {loading ? (
         <ActivityIndicator size="large" color="#808080" />

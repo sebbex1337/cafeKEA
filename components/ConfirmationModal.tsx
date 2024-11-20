@@ -9,7 +9,7 @@ export default function PurchaseConfirmationModal({ visible, onClose }: Purchase
   return (
     <Modal animationType="fade" transparent={true} visible={visible} onRequestClose={onClose}>
       <TouchableWithoutFeedback onPress={onClose}>
-        <View className="flex-1 justify-center items-center">
+        <View className="flex-1 justify-center items-center bg-black bg-opacity-50">
           <TouchableWithoutFeedback>
             <View className="w-72 bg-white rounded-2xl p-6 items-center shadow-lg">
               <Text className="text-2xl font-bold mb-4">Purchase Successful!</Text>

@@ -1,22 +1,23 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    // NOTE: Update this to include the paths to all of your component files.
-    content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
-    presets: [require("nativewind/preset")],
-    theme: {
-        extend: {
-            colors: {
-                background: "#fbfaef",
-                secBackground: "#ffa549",
-                knap: "#49A3FF",
-                border: "#b2623a",
-                secKnap: "#D9A76A",
-                textPrimary: "#3C2F2F",
-                textSecondary: "#756F6D",
-                warning: "#C0392B",
-                success: "#6ABF69",
-            },
-        },
+  // NOTE: Update this to include the paths to all of your component files.
+  content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
+  presets: [require("nativewind/preset")],
+  theme: {
+    extend: {
+      colors: {
+        background: "#EFE6DD",
+        secBackground: "#D9CAB3",
+        primary: "#8B5E3C",
+        secondary: "#C19A6B",
+        accent: "#F4E3D7",
+        border: "#A67858",
+        textPrimary: "#3C2F2F",
+        textSecondary: "#7E7054",
+        warning: "#D9534F",
+        success: "#5CB85C",
+      },
     },
-    plugins: [],
+  },
+  plugins: [],
 };
