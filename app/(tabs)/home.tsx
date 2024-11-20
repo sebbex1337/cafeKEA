@@ -5,7 +5,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Link, useFocusEffect, useRouter } from "expo-router";
 import { doc, getDoc } from "firebase/firestore";
 import { useCallback, useState } from "react";
-import { View, Text, TouchableOpacity, Button } from "react-native";
+import { View, Text, TouchableOpacity, Button, Pressable } from "react-native";
 import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
 
 export default function Home() {
@@ -42,6 +42,7 @@ export default function Home() {
     // Function: Defined inside the component
     function toggleCameraFacing() {
         setFacing((current) => (current === "back" ? "front" : "back"));
+        
     }
 
     return (
@@ -55,7 +56,9 @@ export default function Home() {
                 // If permission is not granted
                 <View className="flex-1 justify-center items-center">
                     <Text>We need your permission to show the camera</Text>
-                    <Button onPress={requestPermission} title="Grant Permission" />
+                    <Pressable onPress={requestPermission}>
+                        <Text>Grant Permission</Text>
+                    </Pressable>
                 </View>
             ) : (
                 // Main Content when permission is granted
@@ -67,12 +70,12 @@ export default function Home() {
                             <Ionicons name="information-circle-outline" size={30} color="grey" />
                         </Link>
                     </TouchableOpacity>
+                    <Pressable onPress={toggleCameraFacing}>
+                       <Ionicons name="camera" size={48} color="grey" />
+                    </Pressable>
                     <View className="w-full mt-36 mx-2">
                         <PictureGrid />
                     </View>
-                    {/* Camera Component */}
-                    {/* <CameraView type={facing} /> */}
-                    <Button title="Toggle Camera Facing" onPress={toggleCameraFacing} />
                 </>
             )}
         </View>
