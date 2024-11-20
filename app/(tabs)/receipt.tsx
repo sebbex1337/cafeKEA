@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { View, Text, FlatList, ActivityIndicator } from "react-native";
 import { auth, database } from "@/firebase";
-import { collection, getDocs, Timestamp } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, Timestamp } from "firebase/firestore";
 import { ReceiptItem } from "@/types/types";
 import { useFocusEffect } from "expo-router";
 
@@ -19,7 +19,9 @@ export default function Receipt() {
     setLoading(true);
     try {
       const receiptsCollection = collection(database, "users", user.uid, "receipts");
-      const querySnapshot = await getDocs(receiptsCollection);
+      // Query receipts by the bought date in descending order
+      const receiptsQuery = query(receiptsCollection, orderBy("bought", "desc"));
+      const querySnapshot = await getDocs(receiptsQuery);
       const items: ReceiptItem[] = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
