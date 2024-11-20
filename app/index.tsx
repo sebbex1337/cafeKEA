@@ -1,8 +1,9 @@
 import { useRouter } from "expo-router";
 import { View, Text, Pressable, TextInput, Alert } from "react-native";
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, database } from "../firebase";
 import { useEffect, useState } from "react";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function Index() {
   const router = useRouter();
@@ -36,6 +37,11 @@ export default function Index() {
           formDataSignUp.email,
           formDataSignUp.password
         );
+
+        await setDoc(doc(database, "users", userCredential.user.uid), {
+          saldo: 0,
+        });
+
         console.log("signed up " + userCredential.user.uid);
       } else {
         Alert.alert("Passwords do not match");
