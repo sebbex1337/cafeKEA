@@ -3,7 +3,7 @@ import Saldo from "@/components/Saldo";
 import { auth, database } from "@/firebase";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Link, useFocusEffect, useRouter } from "expo-router";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { useCallback, useState } from "react";
 import { View, Text, TouchableOpacity, Button, Pressable } from "react-native";
 import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
@@ -73,14 +73,10 @@ export default function Home() {
                 console.log("Download URL: ", downloadURL);
 
                 if (user) {
-                    const userDocRef = doc(database, "users", user.uid);
-                    await setDoc(
-                        userDocRef,
-                        {
-                            profileImage: downloadURL,
-                        },
-                        { merge: true }
-                    );
+                    const userDocRef = collection(database, "users", user.uid, "images");
+                    await addDoc(userDocRef, {
+                        profileImage: downloadURL,
+                    });
                     console.log(" download URL saved to firestore");
                 }
             } catch (error) {
