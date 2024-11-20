@@ -1,24 +1,81 @@
 import { storage } from "@/firebase";
-import { getDownloadURL, listAll, ref } from "firebase/storage";
-import { useEffect, useState } from "react";
-import { View, Text, Image, FlatList } from "react-native";
+import { useFocusEffect } from "expo-router";
+import { getDownloadURL, getMetadata, listAll, ref } from "firebase/storage";
+import { useCallback, useEffect, useState } from "react";
+import { View, Text, Image, FlatList, ActivityIndicator } from "react-native";
 
 export default function PictureGrid() {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    async function fetchImages() {
+  const fetchImages = useCallback(async () => {
+    setLoading(true);
+    try {
       const imageRef = ref(storage, "images");
       const imageList = await listAll(imageRef);
-      const urls = await Promise.all(imageList.items.map(async (item) => await getDownloadURL(item)));
+
+      // Fetch metadata for each image
+      const itemsWithMetaData = await Promise.all(
+        imageList.items.map(async (itemRef) => {
+          const metadata = await getMetadata(itemRef);
+          return {
+            itemRef,
+            timeCreated: metadata.timeCreated, // ISO string
+          };
+        })
+      );
+
+      // Sort items by timeCreated in descending order (latest first)
+      const sortedItems = itemsWithMetaData.sort((a, b) => {
+        return new Date(b.timeCreated).getTime() - new Date(a.timeCreated).getTime();
+      });
+
+      // Get the latest 6 items
+      const latest6Items = sortedItems.slice(0, 6);
+
+      const urls = await Promise.all(latest6Items.map(async (item) => await getDownloadURL(item.itemRef)));
       setImageUrls(urls);
+    } catch (error) {
+      console.log("Error fetching images", error);
+    } finally {
+      setLoading(false);
     }
-    fetchImages();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchImages();
+    }, [fetchImages])
+  );
+
+  useEffect(() => {
+    fetchImages();
+  }, [fetchImages]);
+
+  if (loading) {
+    return (
+      <View className="flex-1 justify-center items-center ">
+        <ActivityIndicator size="large" color="gray" />
+      </View>
+    );
+  }
+
+  if (imageUrls.length === 0) {
+    return (
+      <View className="flex-1 justify-center items-center bg-background">
+        <Text className="text-xl text-gray-700">No images found</Text>
+      </View>
+    );
+  }
 
   return (
     <View className="w-full items-center justify-center rounded-md pb-8">
       <Text className="text-2xl font-bold mb-1">Keas Coffee Lovers</Text>
+      {loading && (
+        <View className="flex-1 justify-center items-center ">
+          <ActivityIndicator size="large" color="gray" />
+        </View>
+      )}
       <FlatList
         className="w-full"
         data={imageUrls}
