@@ -1,4 +1,5 @@
 import { storage } from "@/firebase";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
 import { getDownloadURL, getMetadata, listAll, ref } from "firebase/storage";
 import { useCallback, useEffect, useState } from "react";
@@ -31,7 +32,7 @@ export default function PictureGrid() {
       });
 
       // Get the latest 6 items
-      const latest6Items = sortedItems.slice(0, 6);
+      const latest6Items = sortedItems.slice(0, 9);
 
       const urls = await Promise.all(latest6Items.map(async (item) => await getDownloadURL(item.itemRef)));
       setImageUrls(urls);
@@ -69,8 +70,8 @@ export default function PictureGrid() {
   }
 
   return (
-    <View className="w-full items-center justify-center rounded-md pb-8">
-      <Text className="text-2xl font-bold mb-1">Keas Coffee Lovers</Text>
+    <View className="w-full items-center justify-center rounded-md pb-2">
+      <Text className="text-2xl font-bold mb-1">Keas Coffee Lovers </Text>
       {loading && (
         <View className="flex-1 justify-center items-center ">
           <ActivityIndicator size="large" color="gray" />

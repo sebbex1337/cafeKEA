@@ -2,7 +2,7 @@ import { View, Text, FlatList, Pressable, Alert } from "react-native";
 import { auth, database } from "@/firebase";
 import { MenuItem } from "@/types/types";
 import { useCallback, useEffect, useState } from "react";
-import { addDoc, collection, doc, getDocs, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, runTransaction, serverTimestamp } from "firebase/firestore";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MenuModal from "@/components/MenuModal";
 
@@ -42,21 +42,47 @@ export default function Menu() {
       return;
     }
 
+    const userDocRef = doc(database, "users", user.uid);
+    const receiptsRef = collection(database, "users", user.uid, "receipts");
+
     try {
-      const receiptsRef = collection(database, "users", user.uid, "receipts");
-      await addDoc(receiptsRef, {
-        bought: serverTimestamp(),
-        coffee: {
-          id: selectedItem.id,
-          name: selectedItem.name,
-          price: selectedItem.price,
-        },
+      await runTransaction(database, async (transaction) => {
+        const userDoc = await transaction.get(userDocRef);
+
+        if (!userDoc.exists()) {
+          throw "User document does not exist!";
+        }
+
+        const currentSaldo = userDoc.data().saldo;
+
+        if (currentSaldo >= selectedItem.price) {
+          transaction.update(userDocRef, {
+            saldo: currentSaldo - selectedItem.price,
+          });
+
+          const newReceiptRef = doc(receiptsRef);
+          transaction.set(newReceiptRef, {
+            bought: serverTimestamp(),
+            coffee: {
+              id: selectedItem.id,
+              name: selectedItem.name,
+              price: selectedItem.price,
+            },
+          });
+        } else {
+          throw "Insufficient funds";
+        }
       });
+      Alert.alert("Success", "Item purchased");
       setShowModal(false);
       setSelectedItem(null);
     } catch (error) {
-      console.log(error);
-      Alert.alert("Error", "Failed to purchase item");
+      console.log("Transaction failed:", error);
+      if (error === "Insufficient funds") {
+        Alert.alert("Error", "Insufficient funds");
+      } else {
+        Alert.alert("Error", "Failed to purchase item");
+      }
     }
   }, [selectedItem]);
 
