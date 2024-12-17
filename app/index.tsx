@@ -1,9 +1,10 @@
 import { useRouter } from "expo-router";
-import { View, Text, Pressable, TextInput, Alert } from "react-native";
+import { View, Text, Pressable, TextInput, Alert, ImageBackground } from "react-native";
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, database } from "../firebase";
 import { useEffect, useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
+import React from "react";
 
 export default function Index() {
   const router = useRouter();
@@ -55,7 +56,8 @@ export default function Index() {
     <View className="flex-1 justify-center items-center">
       {!signingUp && (
         <>
-          <Text className="text-4xl font-bold pb-4">Login to cafeKEA</Text>
+          <Text className="text-4xl font-bold pb-4">Login to</Text>
+          <Text className="text-4xl font-bold pb-4">Ten Pillars Coffee</Text>
           <TextInput
             placeholder="Email"
             className="w-[300] p-2 border rounded-xl mb-2"

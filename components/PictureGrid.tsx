@@ -71,7 +71,7 @@ export default function PictureGrid() {
 
   return (
     <View className="w-full items-center justify-center rounded-md pb-2">
-      <Text className="text-2xl font-bold mb-1">Keas Coffee Lovers </Text>
+      <Text className="text-2xl font-bold mb-1">Ten Pillars Coffee Lovers </Text>
       {loading && (
         <View className="flex-1 justify-center items-center ">
           <ActivityIndicator size="large" color="gray" />
