@@ -3,7 +3,7 @@ import { signOut } from "firebase/auth";
 import { auth, database } from "../../firebase";
 import { useFocusEffect, useRouter } from "expo-router";
 import Saldo from "@/components/Saldo";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 export default function Profile() {
@@ -110,7 +110,6 @@ export default function Profile() {
       </View>
       <View className="flex items-center justify-center py-8">
         <Text> logged in as: {auth.currentUser?.email} </Text>
-        <Text> Change password: </Text>
         <Pressable onPress={sign_out} className="bg-[#ffd33d] py-2 px-4 rounded-xl mt-4">
           <Text className="text-center">Logout</Text>
         </Pressable>

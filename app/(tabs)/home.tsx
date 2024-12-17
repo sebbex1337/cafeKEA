@@ -2,20 +2,16 @@ import PictureGrid from "@/components/PictureGrid";
 import Saldo from "@/components/Saldo";
 import { auth, database } from "@/firebase";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Link, useFocusEffect, useRouter } from "expo-router";
-import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { Link, useFocusEffect } from "expo-router";
+import { addDoc, collection, doc, getDoc } from "firebase/firestore";
 import { useCallback, useState } from "react";
-import { View, Text, TouchableOpacity, Button, Pressable } from "react-native";
-import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
+import { View, Text, TouchableOpacity, Pressable } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function Home() {
     const [saldo, setSaldo] = useState(0);
     const user = auth.currentUser;
-    const router = useRouter();
-    const [facing, setFacing] = useState<CameraType>("back");
-    const [permission, requestPermission] = useCameraPermissions();
     const [image, setImage] = useState<string | null>(null);
     const storage = getStorage();
 

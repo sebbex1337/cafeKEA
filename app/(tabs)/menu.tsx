@@ -2,14 +2,16 @@ import { View, Text, FlatList, Pressable, Alert } from "react-native";
 import { auth, database } from "@/firebase";
 import { MenuItem } from "@/types/types";
 import { useCallback, useEffect, useState } from "react";
-import { addDoc, collection, doc, getDocs, runTransaction, serverTimestamp } from "firebase/firestore";
+import { collection, doc, getDocs, runTransaction, serverTimestamp } from "firebase/firestore";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MenuModal from "@/components/MenuModal";
 
 export default function Menu() {
+  const user = auth.currentUser;
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Load all menu items from the database
   useEffect(() => {
@@ -26,6 +28,27 @@ export default function Menu() {
       }
     }
     getMenuItems();
+  }, []);
+
+  const fetchMenuItems = useCallback(async () => {
+    if (!user) {
+      console.log("You need to be logged in to view Menu");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const querySnapshot = await getDocs(collection(database, "menu"));
+      const items: MenuItem[] = [];
+      querySnapshot.forEach((doc) => {
+        items.push({ id: doc.id, ...doc.data() } as MenuItem);
+      });
+      setMenuItems(items);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   function handleItemPress(item: MenuItem) {
@@ -92,6 +115,8 @@ export default function Menu() {
       <FlatList
         className="w-full"
         data={menuItems}
+        onRefresh={fetchMenuItems}
+        refreshing={loading}
         numColumns={1}
         keyExtractor={(item) => item.id}
         renderItem={(menu) => (
