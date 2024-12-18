@@ -1,5 +1,4 @@
 import { storage } from "@/firebase";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
 import { getDownloadURL, getMetadata, listAll, ref } from "firebase/storage";
 import { useCallback, useEffect, useState } from "react";
@@ -70,10 +69,10 @@ export default function PictureGrid() {
   }
 
   return (
-    <View className="w-full items-center justify-center rounded-md pb-2">
-      <Text className="text-2xl font-bold mb-1">Ten Pillars Coffee Lovers </Text>
+    <View className="w-full items-center justify-center pb-2 pt-4 bg-[#5E4F46]">
+      <Text className="text-2xl font-bold text-white mb-1">Ten Pillars Coffee Lovers</Text>
       {loading && (
-        <View className="flex-1 justify-center items-center ">
+        <View className="flex-1 justify-center items-center">
           <ActivityIndicator size="large" color="gray" />
         </View>
       )}
