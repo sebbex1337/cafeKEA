@@ -1,5 +1,4 @@
 import { storage } from "@/firebase";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
 import { getDownloadURL, getMetadata, listAll, ref } from "firebase/storage";
 import { useCallback, useEffect, useState } from "react";
