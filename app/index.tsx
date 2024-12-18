@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { View, Text, Pressable, TextInput, Alert, ImageBackground } from "react-native";
+import { View, Text, Pressable, TextInput, Alert, ImageBackground, Image } from "react-native";
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, database } from "../firebase";
 import { useEffect, useState } from "react";
@@ -53,11 +53,14 @@ export default function Index() {
   }
 
   return (
-    <View className="flex-1 justify-center items-center">
+    <View className="flex-1 items-center mt-4">
+      <Image
+        source={require("../assets/images/tenpillarscoffee-nobg.png")}
+        style={{ width: 400, height: 400, marginBottom: 20 }}
+      />
       {!signingUp && (
         <>
-          <Text className="text-4xl font-bold pb-4">Login to</Text>
-          <Text className="text-4xl font-bold pb-4">Ten Pillars Coffee</Text>
+          <Text className="text-4xl font-bold pb-4">Login</Text>
           <TextInput
             placeholder="Email"
             className="w-[300] p-2 border rounded-xl mb-2"
@@ -71,17 +74,17 @@ export default function Index() {
             value={formDataLogin.password}
             onChangeText={(password) => setFormDataLogin({ ...formDataLogin, password })}
           />
-          <Pressable onPress={login} className="rounded-xl px-4 py-2 bg-[#ffd33d] mb-4">
-            <Text>Login</Text>
+          <Pressable onPress={login} className="rounded-xl px-10 py-4 bg-[#5E4F46] mb-4 mt-4">
+            <Text className="text-white">Login</Text>
           </Pressable>
-          <Pressable onPress={() => setSigningUp(!signingUp)} className="rounded-xl px-4 py-2 bg-[#ffd33d] mb-4">
-            <Text>Sign up</Text>
+          <Pressable onPress={() => setSigningUp(!signingUp)} className="rounded-xl px-8 py-4 bg-[#5E4F46] mb-4">
+            <Text className="text-white">Sign up</Text>
           </Pressable>
         </>
       )}
       {signingUp && (
         <>
-          <Text className="text-4xl font-bold pb-4">Register to cafeKEA</Text>
+          <Text className="text-4xl font-bold pb-4">Register</Text>
           <TextInput
             placeholder="Email"
             className="w-[300] p-2 border rounded-xl mb-2"
@@ -102,17 +105,14 @@ export default function Index() {
             value={formDataSignUp.password2}
             onChangeText={(password2) => setFormDataSignUp({ ...formDataSignUp, password2 })}
           />
-          <Pressable onPress={signup} className="rounded-xl px-4 py-2 bg-[#ffd33d] mb-4">
-            <Text>Create account</Text>
+          <Pressable onPress={signup} className="rounded-xl px-10 py-4 bg-[#5E4F46] mb-4 mt-4">
+            <Text className="text-white">Create account</Text>
           </Pressable>
-          <Pressable onPress={() => setSigningUp(!signingUp)} className="rounded-xl px-4 py-2 bg-[#ffd33d] mb-4">
-            <Text>Go to login</Text>
+          <Pressable onPress={() => setSigningUp(!signingUp)} className="rounded-xl px-14 py-4 bg-[#5E4F46] mb-4">
+            <Text className="text-white">Go to login</Text>
           </Pressable>
         </>
       )}
-      <Pressable onPress={() => router.replace(`/(tabs)/home`)}>
-        <Text>Go to home tabs</Text>
-      </Pressable>
     </View>
   );
 }

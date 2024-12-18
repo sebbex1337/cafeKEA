@@ -86,7 +86,7 @@ export default function Receipt() {
           data={receipts}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <View className="py-3 px-4 m-2 rounded-lg bg-gray-100 shadow">
+            <View className="py-3 px-4 m-2 rounded-lg bg-[#FAFAFA] shadow">
               {/* Row for Coffee Name and Price */}
               <View className="flex-row justify-between items-center mb-1">
                 <Text className="text-xl font-semibold">{item.coffee.name}</Text>

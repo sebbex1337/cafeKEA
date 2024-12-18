@@ -111,9 +111,9 @@ export default function Menu() {
 
   return (
     <View className="flex-1 justify-center items-center pt-2 bg-background">
-      <Text className="font-bold text-4xl">Menu</Text>
+      <Text className="font-bold text-4xl pb-4">Menu</Text>
       <FlatList
-        className="w-full"
+        className="w-full px-4"
         data={menuItems}
         onRefresh={fetchMenuItems}
         refreshing={loading}
@@ -121,10 +121,10 @@ export default function Menu() {
         keyExtractor={(item) => item.id}
         renderItem={(menu) => (
           <Pressable onPress={() => handleItemPress(menu.item)}>
-            <View className="flex-row justify-between items-center py-2 px-4 m-2 rounded-3xl bg-orange-200">
+            <View className="flex-row justify-between items-center py-3 px-4 m-2 rounded-lg bg-[#FAFAFA] shadow">
               <MaterialCommunityIcons name="coffee-to-go" size={48} color="black" />
               <Text className="text-center text-2xl">{menu.item.name}</Text>
-              <Text className="text-center text-2xl">{menu.item.price}kr</Text>
+              <Text className="text-center text-2xl font-bold">{menu.item.price}kr</Text>
             </View>
           </Pressable>
         )}

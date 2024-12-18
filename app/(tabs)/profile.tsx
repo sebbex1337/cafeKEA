@@ -70,10 +70,12 @@ export default function Profile() {
   return (
     <View className="h-full bg-background">
       <View className="items-center py-8">
-        <Saldo userSaldo={saldo} />
-        <Pressable onPress={() => setModalVisible(true)} className="bg-[#ffd33d] py-2 px-4 rounded-xl mt-4">
-          <Text>Tank op</Text>
-        </Pressable>
+        <View className="items-center bg-background border-2 border-[#5E4F46] rounded-3xl shadow p-10">
+          <Saldo userSaldo={saldo} />
+          <Pressable onPress={() => setModalVisible(true)} className="bg-[#5E4F46] py-4 px-6 rounded-xl mt-4">
+            <Text className="text-white">Tank op</Text>
+          </Pressable>
+        </View>
         <Modal
           animationType="slide"
           transparent={true}
@@ -110,8 +112,8 @@ export default function Profile() {
       </View>
       <View className="flex items-center justify-center py-8">
         <Text> logged in as: {auth.currentUser?.email} </Text>
-        <Pressable onPress={sign_out} className="bg-[#ffd33d] py-2 px-4 rounded-xl mt-4">
-          <Text className="text-center">Logout</Text>
+        <Pressable onPress={sign_out} className="bg-[#5E4F46] py-4 px-6 rounded-xl mt-4">
+          <Text className="text-center text-white">Logout</Text>
         </Pressable>
       </View>
     </View>
