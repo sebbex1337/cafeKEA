@@ -30,7 +30,7 @@ export default function PictureGrid() {
         return new Date(b.timeCreated).getTime() - new Date(a.timeCreated).getTime();
       });
 
-      // Get the latest 6 items
+      // Get the latest 9 items
       const latest6Items = sortedItems.slice(0, 9);
 
       const urls = await Promise.all(latest6Items.map(async (item) => await getDownloadURL(item.itemRef)));

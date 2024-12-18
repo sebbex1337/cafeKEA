@@ -74,9 +74,7 @@ export default function Receipt() {
   return (
     <View className="flex-1 justify-start items-center pt-2 bg-background">
       <Text className="text-3xl font-bold mb-4">Receipts</Text>
-      {loading ? (
-        <ActivityIndicator size="large" color="#808080" />
-      ) : receipts.length === 0 ? (
+      {receipts.length === 0 ? (
         <Text className="text-lg">No receipts found.</Text>
       ) : (
         <FlatList
@@ -87,12 +85,10 @@ export default function Receipt() {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View className="py-3 px-4 m-2 rounded-lg bg-[#FAFAFA] shadow">
-              {/* Row for Coffee Name and Price */}
               <View className="flex-row justify-between items-center mb-1">
                 <Text className="text-xl font-semibold">{item.coffee.name}</Text>
                 <Text className="text-red-500 font-semibold">{item.coffee.price.toFixed(2)} DKK</Text>
               </View>
-              {/* Purchase Date */}
               <Text className="text-gray-600">Purchased on: {item.bought.toLocaleString()}</Text>
             </View>
           )}

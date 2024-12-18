@@ -63,12 +63,14 @@ export default function Index() {
           <Text className="text-4xl font-bold pb-4">Login</Text>
           <TextInput
             placeholder="Email"
+            placeholderTextColor="#666"
             className="w-[300] p-2 border rounded-xl mb-2"
             value={formDataLogin.email}
             onChangeText={(email) => setFormDataLogin({ ...formDataLogin, email })}
           />
           <TextInput
             placeholder="Password"
+            placeholderTextColor="#666"
             secureTextEntry
             className="w-[300] p-2 border rounded-xl mb-2"
             value={formDataLogin.password}
@@ -87,12 +89,14 @@ export default function Index() {
           <Text className="text-4xl font-bold pb-4">Register</Text>
           <TextInput
             placeholder="Email"
+            placeholderTextColor="#666"
             className="w-[300] p-2 border rounded-xl mb-2"
             value={formDataSignUp.email}
             onChangeText={(email) => setFormDataSignUp({ ...formDataSignUp, email })}
           />
           <TextInput
             placeholder="Password"
+            placeholderTextColor="#666"
             secureTextEntry
             className="w-[300] p-2 border rounded-xl mb-2"
             value={formDataSignUp.password}
@@ -100,6 +104,7 @@ export default function Index() {
           />
           <TextInput
             placeholder="Enter password again"
+            placeholderTextColor="#666"
             secureTextEntry
             className="w-[300] p-2 border rounded-xl mb-2"
             value={formDataSignUp.password2}
