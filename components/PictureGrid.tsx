@@ -48,10 +48,6 @@ export default function PictureGrid() {
     }, [fetchImages])
   );
 
-  useEffect(() => {
-    fetchImages();
-  }, [fetchImages]);
-
   if (loading) {
     return (
       <View className="flex-1 justify-center items-center ">
